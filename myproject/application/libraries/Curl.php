@@ -277,7 +277,7 @@ class Curl {
 			$this->_ci->load->helper('url');
 			$url = site_url($url);
 		}
-		//217d024f37a7452da1268ff8d3cb09b7 - Yusuf
+		//217d024f37a7452da1268ff8d3cb09b7 - Api token
 		$this->option(CURLOPT_HTTPHEADER, array('X-Auth-Token: 217d024f37a7452da1268ff8d3cb09b7'));
 		$this->url = $url;
 		$this->session = curl_init($this->url);
