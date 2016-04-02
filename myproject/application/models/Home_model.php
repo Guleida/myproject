@@ -155,7 +155,7 @@ class home_model extends CI_Model{
 	 * @param $fileter
 	 * @return bool
 	 */
-	public function search($user_id, $fileter)
+	public function search($user_id, $filter)
 	{
 		$sql = "SELECT
 			a.*,
@@ -168,7 +168,7 @@ class home_model extends CI_Model{
 		  	articles a,
 		  	users u
 		  WHERE a.user_id = u.userID
-		  AND (a.text LIKE '%$fileter%' OR u.username LIKE '%$fileter%')
+		  AND (a.text LIKE '%$filter%' OR u.username LIKE '%$filter%')
 		  ORDER BY a.date DESC;";
 		$result = $this->db->query($sql);
 		if($result) {
