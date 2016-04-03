@@ -1,7 +1,7 @@
 <div class="col-xs-6" >
 
 	<?php
-
+	
 	//getting values from flashdata
 	$success = $this->session->flashdata('success');
 	$error = $this->session->flashdata('error');
@@ -31,13 +31,15 @@
 					<div>
 						<h4><a href="<?php echo site_url('home/profile/'.$article->user_id); ?>" ><?php echo $article->username; //display username with link to profile page ?></a> <span class="grey">(<?php echo $article->date_formatted; //date formatted (in sql) ?>)</span></h4>
 					</div>
-					<div><?php echo word_limiter($article->text, 100); //show 100 words of article ?></div>
+					<div><h2><?php echo $article->title ?></h2></div>
+					<?php $text = $this->typography->auto_typography($article->text);?>
+					<div><?php echo word_limiter($text, 100); //show 100 words of article ?></div>
 					<div class="text-right">
 						<span><?php echo $article->likes_total; //show number of likes ?></span>
 						<?php if($article->liked) { //if article already liked by user - show "Remove Like" button, otherwise - "Like" button ?>
 							<a href="<?php echo site_url('home/dislike/'.$article->article_id); ?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-down"></i></button></a>
 						<?php } else { ?>
-							<a href="<?php echo site_url('home/like/'.$article->article_id); ?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-thumbs-up"></i></button></a>
+							<a href="<?php echo site_url('home/like/'.$article->article_id); ?>"><button class="btn btn-success"><i class="glyphicon glyphicon-thumbs-up"></i></button></a>
 						<?php } ?>
 						<span><?php echo $article->comments_total; //show number of comments ?></span>
 						<a href="<?php echo site_url('home/comments/'.$article->article_id); //show link to comments page ?>"><button class="btn btn-success"><i class="glyphicon glyphicon-comment"></i></button></a>
