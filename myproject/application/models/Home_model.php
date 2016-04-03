@@ -88,6 +88,7 @@ class home_model extends CI_Model{
 	public function add_article($data) {
 		$this->db->set(array( //here I used codeigniter query helper to build insert query
 			'user_id' => $data['user_id'],
+			'title' => $data['title'],
 			'text' => $data['text'],
 			'image' => $data['image']
 		));
@@ -152,7 +153,7 @@ class home_model extends CI_Model{
 	/**
 	 * Search for article by article keywords or author username
 	 * @param $user_id
-	 * @param $fileter
+	 * @param $filter
 	 * @return bool
 	 */
 	public function search($user_id, $filter)
