@@ -29,6 +29,9 @@
 
 				<form action="<?php echo site_url('home/new_article'); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
 					<div class="form-group">
+						<input type="text" class="form-control" id="title" name="title" required placeholder="Article Title" value='<?php echo (set_value('title'))?set_value('title'):""; ?>' />
+					</div>
+					<div class="form-group">
 						<textarea class="form-control article_textarea" id="article" name="article" required placeholder="Article Text"><?php echo (set_value('article'))?set_value('article'):""; ?></textarea>
 					</div>
 					<div class="form-group">
