@@ -51,7 +51,8 @@
 						<div>
 							<h4><a href="<?php echo site_url('home/profile/'.$article->user_id); ?>" ><?php echo $article->username; ?></a> <span class="grey">(<?php echo $article->date_formatted; ?>)</span></h4>
 						</div>
-						<div><?php echo word_limiter($article->text, 100); ?></div>
+						<div><h1> <?php echo $article->title; ?></h1> </div>
+						<div><?php echo word_limiter($this->typography->auto_typography($article->text, 100)); ?></div>
 						<div class="text-right">
 							<span><?php echo $article->likes_total; ?></span>
 							<?php if($article->liked) {?>
