@@ -18,17 +18,25 @@
 	<?php } ?>
 
 	<?php if($article) { ?>
-		<div class="panel panel-default">
-			<div class="panel-body">
 				<?php if($article->image) { ?>
-					<div class="col-lg-5">
+					<div class="panel panel-default">
+			        <div class="panel-body text-center">
 						<img class="img-responsive" src="<?php echo base_url('images/articles/'.$article->image); ?>" alt="Article Image" />
 					</div>
+					</div>
 				<?php } ?>
-				<div><?php echo $article->text; ?></div>
+				<div class="panel panel-default">
+			<div class="panel-body text-center">
+				<h1><?php echo $article->title ?></h1>
 			</div>
 		</div>
-
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div><?php echo $this->typography->auto_typography($article->text); ?></div>
+			</div>
+		</div>
+		
+			
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<?php if($comments && is_array($comments) && count($comments) > 0) { ?>
@@ -41,7 +49,7 @@
 								<span class="bold"><i class="glyphicon glyphicon-user"></i> <a href="<?php echo site_url('home/profile/'.$comment->user_id); ?>" ><?php echo $comment->username; ?></a></span>:
 								<?php echo $comment->text; ?>
 								<?php if($comment->user_id == $user->userID) {?>
-									<a href="<?php echo site_url('home/remove_comment/'.$article->article_id.'/'.$comment->comment_id); ?>"><button class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button></a>
+									<a href="<?php echo site_url('home/remove_comment/'.$article->article_id.'/'.$comment->comment_id); ?>"> - delete </a>
 								<?php } ?>
 							</div>
 						</div>
