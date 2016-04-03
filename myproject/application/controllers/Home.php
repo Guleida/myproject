@@ -10,6 +10,7 @@ class home extends CI_Controller{
 		parent::__construct();
 		$this->load->model('home_model');
 		$this->load->library('Curl');
+		$this->load->library('typography');
 		$this->words_min = 250; //article words limit - minimum
 		$this->words_max = 1000; //article words limit - maximum
 		$this->comments_words_min = 0; //article comments limit - minimum
@@ -34,6 +35,8 @@ class home extends CI_Controller{
 	{
 		$this->load->helper('text');
 
+		
+		
 		$articles = $this->home_model->get_timeline($this->user->userID);
 
 		$view_data = array(
@@ -77,6 +80,7 @@ class home extends CI_Controller{
 
 						$data = array(
 							'user_id' => $this->user->userID,
+							'title' => set_value('title'),
 							'text' => set_value('article'),
 							'image' => $img_data['file_name']
 						);
@@ -84,12 +88,13 @@ class home extends CI_Controller{
 				} else { //...if not - save article without image
 					$data = array(
 						'user_id' => $this->user->userID,
+						'title' => set_value('title'),
 						'text' => set_value('article'),
 						'image' => null
 					);
 				}
 
-				if(isset($data) && count($data) == 3) {
+				if(isset($data) && count($data) == 4) {
 					if ($this->home_model->add_article($data)) {
 						$this->session->set_flashdata('success', 'New article successfully added');
 						redirect('home/timeline');
@@ -410,7 +415,6 @@ class home extends CI_Controller{
 			return $table;
 		}
 	}
-	
 	/* Create Live Results block by League ID */
 	public function getResults(){
 		$leagueId = $_GET['leagueId'];
@@ -428,19 +432,18 @@ class home extends CI_Controller{
 			return $this->load->view('home/fixturesResults',array('categories'=>$categories));
 		}
 	}
-	
 	/* Create Fixtures & Results block by League ID */
 	public function getFixtures(){
 		$leagueId = $_GET['leagueId'];
-		$featureLimit = 'n7';
+		$feautureLimit = 'n7';
 		$categories = array();
 		$today = date("Y-m-d");
 		if(isset($leagueId)){
-			$this->curl->create('http://api.football-data.org/v1/soccerseasons/'.$leagueId.'/fixtures?timeFrame='.$featureLimit);
-			$feature = json_decode($this->curl->execute());
-			if($feature){
-				$featureData = $feature->fixtures;
-				foreach($featureData as $item){
+			$this->curl->create('http://api.football-data.org/v1/soccerseasons/'.$leagueId.'/fixtures?timeFrame='.$feautureLimit);
+			$feauture = json_decode($this->curl->execute());
+			if($feauture){
+				$feautureData = $feauture->fixtures;
+				foreach($feautureData as $item){
 					$date = substr($item->date,0,10);
 					if($date == $today){
 						$item->time = substr($item->date,11,15);	
@@ -448,11 +451,10 @@ class home extends CI_Controller{
 					$categories[$date][] = $item;
 				}	
 			}
-			$fixturessResults = $this->load->view('home/fixturesResults',array('categories'=>$categories,'today' => $today));
-			return $fixturessResults;
+			$fixtuessResults = $this->load->view('home/fixturesResults',array('categories'=>$categories,'today' => $today));
+			return $fixtuessResults;
 		}
 	}
-	
 	public function edit_profile() //edit profile page
 	{
 		$upload_error = false;
