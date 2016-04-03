@@ -26,8 +26,13 @@
 		</div>
 		<?php } ?>
 		<div class="panel panel-default">
+			<div class="panel-body text-center">
+				<h1><?php echo $article->title ?></h1>
+			</div>
+		</div>
+		<div class="panel panel-default">
 			<div class="panel-body">
-				<div><?php echo $article->text; ?></div>
+				<div><?php echo $this->typography->auto_typography($article->text); ?></div>
 			</div>
 		</div>
 	<?php } ?>
