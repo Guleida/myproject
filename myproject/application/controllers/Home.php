@@ -282,7 +282,7 @@ class home extends CI_Controller{
 		}
 	}
 
-	public function remove() //remove article
+	public function remove_article() //remove article
 	{
 		$article_id = $this->uri->segment(3);
 		if(!$article_id) redirect('home/timeline');
@@ -292,7 +292,7 @@ class home extends CI_Controller{
 		if ($this->home_model->remove_article($this->user->userID, $article_id)) { //try to remove article. works only if active user - article author
 
 			if($article->image) { //remove image if available
-				unlink(FCPATH . 'images/articles/'.$article->image);
+				unlink(FCPATH . 'images/articles/'.$article->image); //FCPATH - path to front controller. Retrieved info from : http://stackoverflow.com/questions/12320589/codeigniter-delete-file-pathing-issue
 			}
 
 			$this->session->set_flashdata('success', 'Your article successfully removed');
@@ -332,7 +332,7 @@ class home extends CI_Controller{
 			if($query) {
 				$articles = $this->home_model->search($this->user->userID, $query);
 			} else {
-				$this->session->set_flashdata('error', 'Empty Request');
+				$this->session->set_flashdata('error', 'Please enter some text'); //if they have left the search box empty
 				redirect('home/search');
 			}
 		}
@@ -435,15 +435,15 @@ class home extends CI_Controller{
 	/* Create Fixtures & Results block by League ID */
 	public function getFixtures(){
 		$leagueId = $_GET['leagueId'];
-		$feautureLimit = 'n7';
+		$futureLimit = 'n7';
 		$categories = array();
 		$today = date("Y-m-d");
 		if(isset($leagueId)){
-			$this->curl->create('http://api.football-data.org/v1/soccerseasons/'.$leagueId.'/fixtures?timeFrame='.$feautureLimit);
-			$feauture = json_decode($this->curl->execute());
-			if($feauture){
-				$feautureData = $feauture->fixtures;
-				foreach($feautureData as $item){
+			$this->curl->create('http://api.football-data.org/v1/soccerseasons/'.$leagueId.'/fixtures?timeFrame='.$futureLimit);
+			$future = json_decode($this->curl->execute());
+			if($future){
+				$futureData = $future->fixtures;
+				foreach($futureData as $item){
 					$date = substr($item->date,0,10);
 					if($date == $today){
 						$item->time = substr($item->date,11,15);	
@@ -451,8 +451,8 @@ class home extends CI_Controller{
 					$categories[$date][] = $item;
 				}	
 			}
-			$fixtuessResults = $this->load->view('home/fixturesResults',array('categories'=>$categories,'today' => $today));
-			return $fixtuessResults;
+			$fixturesResults = $this->load->view('home/fixturesResults',array('categories'=>$categories,'today' => $today));
+			return $fixturesResults;
 		}
 	}
 	public function edit_profile() //edit profile page
