@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="col-lg-12">
-                   <legend> Leagues:</legend>
+                   <legend> Football Leagues</legend>
                    <caption>Choose one of leagues from the options below:</caption><br/><br/>
                    <select id="leagueSelect">
                         <option value="0"> -------Select League------- </option>
@@ -14,10 +14,14 @@
                         <option value="397">French Ligue 2</option>
                         <option value="394">German Bundesliga</option>
                         <option value="395">German Bundesliga 2</option>
+                        <option value="403">German Bundesliga 3</option>
                         <option value="401">Italian Serie A</option>
                         <!-- <option value="itlge2">Italian Serie B</option> -->
                         <option value="399">Spanish Premiera Division</option>
                         <option value="400">Spanish Liga Adelante</option>
+                        <option value="402">Primeira Liga</option>
+                        <option value="404">Eredivisie</option>
+                        
                     </select>
 
                     <table class="table" id="ContainerTable" style="display: none;">
@@ -55,7 +59,6 @@ $(document).ready(function(){
     $('select').change(function () {
         $('#ContainerTable').show();
         if ($(this).val() != "0") {
-        // $('#timer_inp').html('25');
           $('.block_header').show();  
            var leagueId = $(this).val();
             //Leagues tables 
